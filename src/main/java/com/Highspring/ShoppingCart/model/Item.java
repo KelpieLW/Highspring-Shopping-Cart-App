@@ -19,7 +19,7 @@ public class Item {
     private String description;
     private Double price;
     @ManyToOne
-    @JoinColumn(name="category_id", nullable = false)
-    private Category categoryId;
+    @JoinColumn(name="item_category", nullable = false)
+    private Category itemCategory;
     private String itemImageUrl;
 }

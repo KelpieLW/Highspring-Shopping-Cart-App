@@ -18,5 +18,6 @@ public class Order {
     private Long id;
     @OneToMany(mappedBy = "relatedOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
+    private Double subTotalPrice;
     private Double totalPrice;
 }

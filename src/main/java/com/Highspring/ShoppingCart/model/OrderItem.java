@@ -19,7 +19,6 @@ public class OrderItem {
     @JoinColumn (name = "item_id", nullable=false)
     private Item orderItem;
     private Long quantity;
-    private Double subTotalPrice;
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = true)
     private Order relatedOrder;
