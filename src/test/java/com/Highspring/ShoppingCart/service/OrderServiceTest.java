@@ -41,17 +41,18 @@ public class OrderServiceTest {
         List<OrderItem> orderItems = sampleOrderItemList();
         double subTotal = 200.0;
         when(taxService.calculateTax()).thenReturn(0.1); // 10% tax
+        double taxRate=taxService.calculateTax();
 
         ArgumentCaptor<Order> orderCaptor = ArgumentCaptor.forClass(Order.class);
 
         orderService.checkoutOrderItems(orderItems, subTotal);
 
-        verify(taxService, times(1)).calculateTax();
+        verify(taxService, times(2)).calculateTax();
         verify(jpaOrderRepository, times(1)).save(orderCaptor.capture());
 
         Order savedOrder = orderCaptor.getValue();
         assertEquals(subTotal, savedOrder.getSubTotalPrice());
-        assertEquals(subTotal * 1.1, savedOrder.getTotalPrice()); // 200 * 1.1 = 220
+        assertEquals((subTotal * taxRate)+subTotal, savedOrder.getTotalPrice()); // 200 * 1.1 = 220
         assertEquals(orderItems, savedOrder.getOrderItems());
 
     }

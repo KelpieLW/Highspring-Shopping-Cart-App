@@ -14,13 +14,15 @@ import java.util.List;
 public class OrderService {
     private final TaxService taxService;
     private final JpaOrderRepository jpaOrderRepository;
-    public void checkoutOrderItems(List<OrderItem> orderItems, Double subTotal) {
-        if(taxService.calculateTax()==null){
+    public Order checkoutOrderItems(List<OrderItem> orderItems, Double subTotal) {
+        Double taxRate=taxService.calculateTax();
+        if(taxRate==null){
             throw new TaxServiceError("Tax service is returning an invalid tax rate.");
         }
-        Double total=(subTotal*taxService.calculateTax())+subTotal;
+        Double total=(subTotal*taxRate)+subTotal;
         Order order = Order.builder().orderItems(orderItems).subTotalPrice(subTotal).totalPrice(total).build();
         jpaOrderRepository.save(order);
+        return order;
 
     }
 }

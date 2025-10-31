@@ -1,8 +1,10 @@
 package com.Highspring.ShoppingCart.service;
 
+import com.Highspring.ShoppingCart.exceptions.item.InvalidItemQuantityException;
 import com.Highspring.ShoppingCart.exceptions.item.InvaliditemPriceException;
 import com.Highspring.ShoppingCart.exceptions.item.ItemNotFoundException;
 import com.Highspring.ShoppingCart.exceptions.order.EmptyOrderException;
+import com.Highspring.ShoppingCart.model.Category;
 import com.Highspring.ShoppingCart.model.Item;
 import com.Highspring.ShoppingCart.model.OrderItem;
 import com.Highspring.ShoppingCart.repository.jpa.JpaItemRepository;
@@ -44,6 +46,7 @@ public class OrderItemServiceTest {
         assertThat(result.getOrderItem()).isEqualTo(item);
         assertThat(result.getQuantity()).isEqualTo(quantity);
     }
+
     @Test
     void addOrderItem_shouldThrowException_whenGivenANonExistentItem(){
         when(itemRepository.findById(6L)).thenReturn(Optional.empty());
@@ -63,22 +66,19 @@ public class OrderItemServiceTest {
 
     @Test
     void addOrderItem_shouldThrowException_whenGivenAnInvalidQuantity(){
-        assertThrows(IllegalArgumentException.class,()->orderItemService.addOrderItem(1L,-2L));
-        verifyNoInteractions(itemRepository);
+        assertThrows(InvalidItemQuantityException.class,()->orderItemService.addOrderItem(1L,-2L));
         verifyNoInteractions(discountService);
+        verifyNoInteractions(itemRepository);
     }
 
     @Test
     void addOrderItem_shouldThrowException_whenAnItemHasANegativePrice(){
         Item item=itemSample(9L, "Test_Item", -999.99);
-
         when(itemRepository.findById(9L)).thenReturn(Optional.of(item));
-        when(discountService.calculateDiscount(item)).thenReturn(0.0);
 
         assertThrows(InvaliditemPriceException.class, ()-> orderItemService.addOrderItem(9L,2L));
 
         verify(itemRepository, times(1)).findById(9L);
-        verifyNoInteractions(discountService.calculateDiscount(item));
     }
 
     @Test
