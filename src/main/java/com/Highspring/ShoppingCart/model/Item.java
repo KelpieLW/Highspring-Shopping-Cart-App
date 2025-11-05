@@ -3,6 +3,9 @@ package com.Highspring.ShoppingCart.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * These Items are previously persisted on an H2 database, these contain the item information, each item can be added to a {@link OrderItem} and given an amount to calculate its subtotal price
+ */
 @Entity
 @Table(name="item")
 @Getter

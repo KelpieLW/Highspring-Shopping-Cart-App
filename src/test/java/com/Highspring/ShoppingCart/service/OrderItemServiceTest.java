@@ -17,13 +17,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderItemServiceTest {
     @Mock private JpaItemRepository itemRepository;
     @Mock private DiscountService discountService;
-    @Mock private OrderService orderService;
     @InjectMocks private OrderItemService orderItemService;
     private Item itemSample (Long id, String name, Double price){
         Item sampleItemResult = Item.builder().id(id).name(name).price(price).build();
@@ -86,5 +86,18 @@ public class OrderItemServiceTest {
         assertThrows(EmptyOrderException.class, ()-> orderItemService.checkOutItems());
         verifyNoInteractions(itemRepository);
         verifyNoInteractions(discountService);
+    }
+
+    @Test
+    void clearItemOrders_shouldDeleteAllOrderItemsInMemoryList_whenOrderItemListHasItems(){
+        Item item=itemSample(1L, "Test_Item", 29.99);
+        Long quantity=2L;
+        when(itemRepository.findById(1L)).thenReturn(Optional.of(item));
+        when(discountService.calculateDiscount(item)).thenReturn(0.1);
+
+        orderItemService.addOrderItem(1L,quantity);
+        orderItemService.clearItemOrders();
+
+        assertTrue(orderItemService.findAllOrderItem().isEmpty());
     }
 }

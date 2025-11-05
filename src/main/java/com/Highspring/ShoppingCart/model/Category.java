@@ -3,6 +3,9 @@ package com.Highspring.ShoppingCart.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * Each {@link Item} is related to a category, each category defines an Item discount rate
+ */
 @Entity
 @Table(name = "category")
 @Getter

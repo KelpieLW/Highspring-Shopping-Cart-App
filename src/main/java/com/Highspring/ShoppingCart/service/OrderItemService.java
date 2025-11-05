@@ -14,6 +14,16 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service class responsible for managing OrderItem operations such as
+ * adding items to an order, clearing items, and checking out an order.
+ * <p>
+ *  This class acts as an intermediary between the controller and the repository layers,
+ *  enforcing business rules and validation before persisting or transforming data.
+ * </p>
+ */
+
+
 @Service
 @RequiredArgsConstructor
 public class OrderItemService {
@@ -23,10 +33,20 @@ public class OrderItemService {
     private final List<OrderItem> orderItems = new ArrayList<OrderItem>();
     private Double subTotal=0.0;
 
+    /**
+     * Returns in memory orderItem list. This is an in memory that saves the added shopping cart Order items
+     * @return a list of {@link OrderItem}
+     */
     public List<OrderItem> findAllOrderItem(){
         return orderItems;
     }
 
+    /**
+     * Adds an Order Item to an OrderItem list and returns the latest added OrderItem
+     * @param itemIdAddedToOrder identification number (Long) for the {@link  Item} to be used for the {@link  OrderItem} object to be added to the list
+     * @param quantity amount of {@link Item} related to an OrderItem
+     * @return a {@link OrderItem} of the OrderItem currently added to the in memory list
+     */
     public OrderItem addOrderItem(Long itemIdAddedToOrder, Long quantity){
         if (itemIdAddedToOrder==null){
             throw new IllegalArgumentException("Item ID field cannot be null.");
@@ -58,6 +78,10 @@ public class OrderItemService {
         return orderItemToBeAdded;
     }
 
+    /**
+     * Passes the OrderItem list and Subtotal (sum of all the prices from all the items inside the OrderItem List) to Order service to perform the checkout with the current Order Item List
+     * @return the {@link  Order} created by the {@link OrderService} from the {@link OrderItem} list
+     */
     public Order checkOutItems(){
 
         if (orderItems.isEmpty()){
@@ -67,6 +91,9 @@ public class OrderItemService {
         return orderService.checkoutOrderItems(orderItems, subTotal);
     }
 
+    /**
+     * Clears the OrderItem list (orderItems) from all its elements and updates subTotal to 0.0
+     */
     public void clearItemOrders(){
         orderItems.clear();
         subTotal=0.0;
