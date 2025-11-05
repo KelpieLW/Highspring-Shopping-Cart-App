@@ -23,6 +23,10 @@ public class OrderItemService {
     private final List<OrderItem> orderItems = new ArrayList<OrderItem>();
     private Double subTotal=0.0;
 
+    public List<OrderItem> findAllOrderItem(){
+        return orderItems;
+    }
+
     public OrderItem addOrderItem(Long itemIdAddedToOrder, Long quantity){
         if (itemIdAddedToOrder==null){
             throw new IllegalArgumentException("Item ID field cannot be null.");
@@ -33,7 +37,7 @@ public class OrderItemService {
         }
 
         if (quantity<=0){
-            throw  new InvalidItemQuantityException("You entered an invalid item quantity, the minimum is 1.");
+            throw  new InvalidItemQuantityException("You've entered an invalid item quantity, the minimum is 1.");
         }
 
         Item itemAddedToOrder = itemRepository.findById(itemIdAddedToOrder)
@@ -55,12 +59,16 @@ public class OrderItemService {
     }
 
     public Order checkOutItems(){
+
         if (orderItems.isEmpty()){
             throw new EmptyOrderException("You can't complete an empty order! Please pick some products.");
         }
-        Order order=orderService.checkoutOrderItems(orderItems, subTotal);
+
+        return orderService.checkoutOrderItems(orderItems, subTotal);
+    }
+
+    public void clearItemOrders(){
         orderItems.clear();
         subTotal=0.0;
-        return order;
     }
 }

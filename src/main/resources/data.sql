@@ -28,10 +28,10 @@ INSERT INTO item (name, description, price, item_category, itemImageUrl)
 VALUES ('Power Supply ICEBERG-500W','Power Supply with 500w capacity', 39.55, 1,'/itemPictures/computer-parts/PS-ICEBERG-500W.png');
 
 INSERT INTO item (name, description, price, item_category, itemImageUrl)
-VALUES ('GeForce® GTX-1650-D6-OC-4G','Nvidia GPU for gaming', 199.99, 1,'/itemPictures/computer-parts/GeForce®-GTX-1650-D6-OC-4G.png');
+VALUES ('GeForce® GTX-1650-D6-OC-4G','Nvidia GPU for gaming', 199.99, 1,'/itemPictures/computer-parts/GeForce.png');
 
 INSERT INTO item (name, description, price, item_category, itemImageUrl)
-VALUES ('GeForce RTX™-5060-Ti', 'Nvidia GPU for gaming',299.50,1,'/itemPictures/computer-parts/ssAAQGeForce-RTX™-5060-Ti.png');
+VALUES ('GeForce RTX-5060-Ti', 'Nvidia GPU for gaming',299.50,1,'/itemPictures/computer-parts/GeForce-RTX.png');
 
 -- ===== Items - Accessories=====
 

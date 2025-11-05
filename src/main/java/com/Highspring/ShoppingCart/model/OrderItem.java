@@ -20,6 +20,6 @@ public class OrderItem {
     private Item orderItem;
     private Long quantity;
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = true)
-    private Order relatedOrder;
+    @JoinColumn(name = "order_id")
+    private Order order;
 }
