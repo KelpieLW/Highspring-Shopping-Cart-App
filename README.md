@@ -33,4 +33,4 @@ H2 database can be consulted at:
 ## Documentation
 
 All the oficial Javadoc documentation can be found at:
-[View Javadoc](./build/docs/javadoc/index.html)
+[View Javadoc](https://kelpielw.github.io/Highspring-Shopping-Cart-App/)
