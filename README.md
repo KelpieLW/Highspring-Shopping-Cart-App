@@ -2,6 +2,8 @@
 
 Spring Boot Backend for Shopping Cart web aplication, calculates purchase quantities, discounts, subtotal and total prices for different products
 
+![Static Badge](https://img.shields.io/badge/Springboot-3.5.7-blue)
+
 ## Instructions
 
 User input of orders through UI is currently not supported, all the available items are preloaded in an H2 database, orders can be placed through public use endpoints, more info about the API in the swagger documentation:
