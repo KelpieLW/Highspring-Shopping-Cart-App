@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost")
 @RequestMapping("/v1/api/orderItems")
 @RequiredArgsConstructor
 @Tag(name = "Order Items", description = "Manage items in a user's order or shopping cart")
