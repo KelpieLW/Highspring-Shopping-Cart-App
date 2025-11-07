@@ -30,7 +30,7 @@ public class OrderService {
             throw new TaxServiceError("Tax service is returning an invalid tax rate.");
         }
         Double total=(subTotal*taxRate)+subTotal;
-        Order order = Order.builder().orderItems(orderItems).subTotalPrice(subTotal).totalPrice(total).build();
+        Order order = Order.builder().orderItems(orderItems).subTotalPrice(subTotal).totalPrice(total).taxValue(taxRate).build();
         jpaOrderRepository.save(order);
         return order;
 

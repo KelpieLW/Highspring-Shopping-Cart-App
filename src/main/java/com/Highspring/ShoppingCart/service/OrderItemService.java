@@ -68,12 +68,16 @@ public class OrderItemService {
         }
 
         Double discountRate=discountService.calculateDiscount(itemAddedToOrder);
-        subTotal+=(itemAddedToOrder.getPrice()*discountRate)+itemAddedToOrder.getPrice();
+        itemAddedToOrder.setPrice(
+                itemAddedToOrder.getPrice() - (itemAddedToOrder.getPrice() * discountRate)
+        );
+
 
         OrderItem orderItemToBeAdded=OrderItem.builder().
                 orderItem(itemAddedToOrder).
                 quantity(quantity).
                 build();
+        subTotal+=orderItemToBeAdded.getOrderItem().getPrice()*orderItemToBeAdded.getQuantity();
         orderItems.add(orderItemToBeAdded);
         return orderItemToBeAdded;
     }
